@@ -11,7 +11,7 @@ var jwt = require('koa-jwt');
 var config = require('./lib/config');
 var log = require('./lib/log');
 var error = require('./lib/helpers/error');
-var middlewares = require('./lib/helpers/Middlewares');
+var middlewares = require('./lib/helpers/middlewares');
 
 //Our koa app
 var app = koa();
