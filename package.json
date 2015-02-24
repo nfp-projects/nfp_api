@@ -38,7 +38,7 @@
     "koa-json-mask": "^0.3.2",
     "koa-jwt": "^0.1.7",
     "koa-router": "^3.8.0",
-    "lodash": "^2.4.1",
+    "lodash": "^3.3.0",
     "mailgun-js": "^0.6.8",
     "nconf": "^0.7.1",
     "pg": "^4.2.0"

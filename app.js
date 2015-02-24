@@ -11,6 +11,7 @@ var jwt = require('koa-jwt');
 var config = require('./lib/config');
 var log = require('./lib/log');
 var error = require('./lib/helpers/error');
+var middlewares = require('./lib/helpers/Middlewares');
 
 //Our koa app
 var app = koa();
@@ -29,12 +30,15 @@ app.use(cors({
   origin: true,
   credentials: true
 }));
+app.use(middlewares.lockContent);
 app.use(jwt({
   secret: config.get('jwt:secret'),
   passthrough: true
 }));
-app.use(router(app));
 app.use(mask());
+app.use(middlewares.parseBody);
+app.use(middlewares.notFound);
+app.use(router(app));
 
 //Routes
 var authentication = require('./lib/request-handlers/authentication');
@@ -42,7 +46,21 @@ var authenticated = authentication.authenticated;
 app.post('/authenticate', koaBody, authentication.authenticate);
 
 var category = require('./lib/request-handlers/category');
-app.get('/categories', category.categories);
+app.get('/categories', category.getCategories);
+app.get('/categories/:category_id', category.getCategory);
+app.post('/categories', authenticated, koaBody, category.createCategory);
+app.put('/categories/:category_id', authenticated, koaBody, category.updateCategory);
+app.del('/categories/:category_id', authenticated, category.deleteCategory);
+
+var serie = require('./lib/request-handlers/serie');
+app.get('/series', serie.getSeries);
+app.get('/series/:serie_id', serie.getSerie);
+app.post('/series', authenticated, koaBody, serie.createSerie);
+app.put('/series/:serie_id', authenticated, koaBody, serie.updateSeries);
+app.get('/categories/:category_id/series', serie.getSeries);
+app.get('/categories/:category_id/series/:serie_id', serie.getSerie);
+app.put('/categories/:category_id/series/:serie_id', authenticated, koaBody, serie.updateSeries);
+app.post('/categories/:category_id/series', authenticated, koaBody, serie.createSerie);
 
 var nav = require('./lib/request-handlers/nav');
 app.get('/nav', nav.getNav);
