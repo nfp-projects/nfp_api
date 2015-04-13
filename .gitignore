@@ -26,5 +26,8 @@ node_modules
 
 config/*
 
+# Ignore uploads directory
+uploads/*
+
 # Users Environment Variables
 .lock-wscript
