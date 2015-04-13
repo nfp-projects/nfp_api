@@ -5,7 +5,8 @@ var cors = require('koa-cors');
 var koaLogger = require('koa-bunyan-logger');
 var mask = require('koa-json-mask');
 var router = require('koa-router');
-var koaBody = require('koa-better-body')({fieldsKey: false});
+var koaBetterBody = require('koa-better-body');
+var koaBody = koaBetterBody({fieldsKey: false});
 var jwt = require('koa-jwt');
 
 var config = require('./lib/config');
@@ -52,6 +53,12 @@ app.post('/categories', authenticated, koaBody, category.createCategory);
 app.put('/categories/:category_id', authenticated, koaBody, category.updateCategory);
 app.del('/categories/:category_id', authenticated, category.deleteCategory);
 
+var media = require('./lib/request-handlers/media');
+app.get('/media', media.getMedias);
+app.get('/media/:media_id', media.getMedia);
+app.post('/media', authenticated, koaBetterBody({fieldsKey: false, multipart: true}), media.createMedia);
+app.del('/media/:media_id', authenticated, media.deleteMedia);
+
 var serie = require('./lib/request-handlers/serie');
 app.get('/series', serie.getSeries);
 app.get('/series/:serie_id', serie.getSerie);
@@ -72,6 +79,12 @@ app.post('/profile/forgot', koaBody, profile.forgotPassword);
 app.post('/profile/verify', koaBody, profile.verify);
 app.post('/profile/finish', koaBody, profile.finish);
 app.post('/profile/signup', koaBody, profile.signup);
+
+var user = require('./lib/request-handlers/user');
+app.get('/users', user.getUsers);
+app.get('/users/:user_id', user.getUser);
+app.put('/users/:user_id', authenticated, koaBody, user.updateUser);
+app.del('/users/:user_id', authenticated, user.deleteUser);
 
 
 var releases = require('./lib/request-handlers/release');
