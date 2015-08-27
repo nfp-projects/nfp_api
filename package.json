@@ -28,21 +28,23 @@
     "bookshelf": "^0.7.9",
     "bunyan": "^1.3.2",
     "googleapis": "^1.1.3",
+    "hashids": "^1.0.2",
     "http-errors": "^1.3.1",
-    "jsonwebtoken": "^3.2.2",
+    "jsonwebtoken": "^5.0.4",
     "knex": "^0.7.3",
     "koa": "^0.15.0",
     "koa-better-body": "^1.0.17",
     "koa-bunyan": "0.0.2",
     "koa-bunyan-logger": "^1.2.0",
-    "koa-cors": "usecanvas/koa-cors",
+    "koa-cors": "0.0.16",
     "koa-json-mask": "^0.3.2",
     "koa-jwt": "^0.1.7",
     "koa-router": "^3.8.0",
     "lodash": "^3.3.0",
     "mailgun": "^0.5.0",
     "nconf": "^0.7.1",
-    "pg": "^4.2.0"
+    "pg": "^4.2.0",
+    "sharp": "^0.11.0"
   },
   "devDependencies": {
     "mocha": "^2.1.0"

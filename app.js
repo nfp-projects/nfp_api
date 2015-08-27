@@ -56,6 +56,7 @@ app.del('/categories/:category_id', authenticated, category.deleteCategory);
 var media = require('./lib/request-handlers/media');
 app.get('/media', media.getMedias);
 app.get('/media/:media_id', media.getMedia);
+app.get('/media/:media_id/:filename', media.downloadMedia);
 app.post('/media', authenticated, koaBetterBody({fieldsKey: false, multipart: true}), media.createMedia);
 app.del('/media/:media_id', authenticated, media.deleteMedia);
 
